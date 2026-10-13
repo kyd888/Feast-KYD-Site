@@ -1,0 +1,5 @@
+.qr-build/
+.style-fix.patch
+.openai/*.tar.gz
+node_modules/
+*.log
