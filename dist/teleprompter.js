@@ -1,33 +1,37 @@
 'use strict';
-const DEFAULT_INTRO = `Hi, I’m Keenan Jones, and I make music as KYD. My project is called GROVES: Signal Night.
+const DEFAULT_INTRO = `Hi, I’m Keenan Jones, and I make music as KYD.
 
-Imagine walking into a room where a forest is projected around you. There are objects, recorded sounds, and written memories to explore. Then the music starts. The songs and the room tell a story together.
+My project is called GROVES: Signal Night. It’s a live music experience where you can walk through a room filled with projected forests, sound, and pieces of people’s memories, then hear those feelings reflected in a performance.
 
-That’s what I want to create: a live concert inside a walk-through memory archive.
+I want to tell you why that matters to me.
 
-This idea is personal to me. The week of a previous event, a close friend went through a serious crisis. I was there with her, and I dedicated my performance to her.
+The week of a previous event, a close friend of mine attempted suicide. I was there to help get her to the hospital, and I stayed with her.
 
-Moving between being there for someone I cared about and getting onstage changed what that performance meant to me. I kept thinking about how much we carry into a room without anyone knowing.
+When it was time for my performance, I left the hospital, performed, and went right back. I dedicated that event to her. Throughout the following week, I continued being there as she recovered.
 
-With GROVES, I want to give some of those feelings a place to go. You could leave a memory of your own, or you could simply listen. You don’t have to explain yourself to belong in the room.
+It was a strange feeling, standing in front of an audience while someone I cared about was going through something so private and painful.
 
-I wrote a song for my friend called “Poor Baby.” I’d like to share two minutes of it with you now.`;
+That experience stayed with me. It made me think about how much people carry into a room that nobody else can see, and what it means to make space for those feelings.
+
+That’s what I want to build with GROVES.
+
+Before and after the performance, visitors can explore a memory archive: short written stories, objects, and recorded sounds. They can leave an anonymous memory of their own, or simply listen. During the music, projections and lighting help bring the emotional world of the songs into the room.
+
+My hope is that someone hears a song or reads a fragment of another person’s story and feels a little less alone in their own.
+
+I wrote a song for my friend called “Poor Baby.” I’d like to share two minutes of it with you.`;
 const DEFAULT_OUTRO = `Thank you.
 
-That song is one part of GROVES. Around the performance, I want to build a space where people can spend time with the memories behind the music and recognize something of their own lives.
+A FEAST grant of up to $2,000 would help pay for the projection, lighting, and audio needed to present GROVES, along with printed memory cards, transportation, and documentation.
 
-FEAST funding would help pay for projection, lighting, and audio, along with printed memory cards and installation materials. It would also help with transportation and documenting the work.
+I’m designing the installation to travel, so we can bring this experience into more Oklahoma spaces and keep building the archive with each audience.
 
-I’m designing those elements to be portable, so I can bring the experience into more Oklahoma spaces. Each audience could add something new to the archive.
+Your vote would help turn these songs into a place people can actually enter, contribute to, and share.
 
-This grant would help me take the project from an idea and a set of songs into a public experience people can actually walk into.
-
-If you’d like to help bring it to life, please vote for KYD / Keenan Jones: GROVES: Signal Night.
-
-Thank you for listening, and for giving me the chance to share this with you.`;
+I’m KYD, and this is GROVES: Signal Night. Thank you.`;
 const $ = id => document.getElementById(id);
 const view = $('viewport');
-const key = 'groves-prompter-v1';
+const key = 'groves-prompter-exact-2026-10-13';
 let speech = {intro: DEFAULT_INTRO, outro: DEFAULT_OUTRO};
 let running = false, started = false, elapsed = 0, lastFrame = 0, mode = 'intro', songStart = null, wakeLock = null, position = 0;
 try {const saved = JSON.parse(localStorage.getItem(key)); if (saved && typeof saved.intro === 'string' && typeof saved.outro === 'string') speech = saved;} catch {}
