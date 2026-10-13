@@ -1,5 +1,5 @@
 'use strict';
-const PROJECT_URL='https://groves-signal-night.kydmgmt.chatgpt.site/';
+const PROJECT_URL='https://feastkyd.netlify.app/';
 const CASHTAG='$kyd888';
 const STORAGE_KEY='groves-memory-v1';
 async function copyText(value){if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(value);return true;}const field=document.createElement('textarea');field.value=value;field.style.position='fixed';field.style.opacity='0';document.body.append(field);field.select();let ok=false;try{ok=document.execCommand('copy');}finally{field.remove();}return ok;}
