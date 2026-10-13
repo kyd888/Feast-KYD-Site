@@ -5,7 +5,7 @@
 <meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#101712">
 <title>GROVES — speech prompter</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="teleprompter.css"><script src="teleprompter.js" defer></script>
+<link rel="stylesheet" href="teleprompter.css"><script src="teleprompter.js" defer></script><script src="voice-match.js" defer></script><script src="teleprompter-voice.js" defer></script>
 </head>
 <body>
 <header class="toolbar">
@@ -17,8 +17,9 @@
   <label>Text <input id="font" type="range" min="28" max="90" value="54"><output id="font-value">54px</output></label>
   <label>Scroll <input id="speed" type="range" min="5" max="80" value="26"><output id="speed-value">26</output></label>
   <label class="check"><input id="autoscroll" type="checkbox" checked> Auto-scroll</label>
-  <button id="song" type="button">Song cue</button><button id="closing" type="button">Closing</button>
+  <button id="voice-toggle" type="button" aria-pressed="false">Follow my voice</button><button id="song" type="button">Song cue</button><button id="closing" type="button">Closing</button>
 </nav>
+<aside class="voice-bar"><span id="voice-status" role="status">Voice following is off.</span><span>Optional microphone access. Your browser may send audio to its speech service; internet may be required. This site does not save recordings or transcripts.</span></aside>
 <main id="viewport" tabindex="0" aria-label="Speech text. Use arrow keys or scroll to move manually.">
   <article id="script">
     <section id="intro"><p class="cue">OPENING · breathe, look up, then begin</p><div id="intro-text" class="spoken"></div></section>
@@ -26,6 +27,6 @@
     <section id="outro"><p class="cue">CLOSING · take a breath</p><div id="outro-text" class="spoken"></div><p class="cue end">END · thank them and look up</p></section>
   </article>
 </main>
-<footer><span>Space: start / pause · S: song cue · C: closing · ↑ ↓: manual scroll</span><span id="notice" role="status">Rehearse once to set your pace. This page does not listen to your voice.</span></footer>
+<footer><span>Space: start / pause · S: song cue · C: closing · ↑ ↓: manual scroll</span><span id="notice" role="status">Rehearse once to set your pace. In voice mode, click a paragraph to pick up from there.</span></footer>
 <dialog id="editor"><form id="editor-form"><h2>Make the speech yours.</h2><p>Changes are saved only in this browser. This page itself is public; personal edits are not uploaded. Use blank lines between paragraphs.</p><label for="intro-edit">Before the song</label><textarea id="intro-edit" rows="9"></textarea><label for="outro-edit">After the song</label><textarea id="outro-edit" rows="8"></textarea><p id="word-count"></p><div class="editor-actions"><button type="submit">Save speech</button><button id="cancel-edit" type="button">Cancel</button><button id="default-script" type="button">Load original draft</button></div></form></dialog>
 </body></html>
