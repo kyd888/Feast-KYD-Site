@@ -19,4 +19,21 @@ if(input){
  document.getElementById('share-project').addEventListener('click',async()=>{const status=document.getElementById('share-status');try{if(navigator.share){await navigator.share({title:'GROVES: Signal Night',text:'Explore KYD’s immersive music project.',url:PROJECT_URL});status.textContent='Sharing complete.';}else{status.textContent=await copyText(PROJECT_URL)?'Project link copied.':'Project link: '+PROJECT_URL;}}catch(e){status.textContent=e.name==='AbortError'?'Sharing cancelled.':'Project link: '+PROJECT_URL;}});
 }
 const present=document.getElementById('present');
-if(present){let wakeLock=null;present.addEventListener('click',async()=>{const status=document.getElementById('tablet-status');try{if(!document.fullscreenElement&&document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();if('wakeLock' in navigator)wakeLock=await navigator.wakeLock.request('screen');status.textContent=wakeLock?'Display ready. Screen will stay awake while this page is visible.':'Display ready. Set your tablet’s auto-lock to stay on during the event.';}catch{status.textContent='Set your tablet’s auto-lock to stay on during the event.';}});document.getElementById('copy-project').addEventListener('click',async()=>{try{document.getElementById('tablet-status').textContent=await copyText(PROJECT_URL)?'Project link copied.':'Use the address below the QR code.';}catch{document.getElementById('tablet-status').textContent='Use the address below the QR code.';}});}
+if(present){
+ let wakeLock=null,hadNativeFullscreen=false;
+ const status=document.getElementById('tablet-status');
+ const nativeElement=()=>document.fullscreenElement||document.webkitFullscreenElement;
+ function restoreControls(){document.body.classList.remove('presenting');if(wakeLock){wakeLock.release().catch(()=>{});wakeLock=null;}present.focus();}
+ async function leavePresentation(){restoreControls();try{if(nativeElement()){const exit=document.exitFullscreen||document.webkitExitFullscreen;if(exit)await exit.call(document);}}catch{}}
+ present.addEventListener('click',async()=>{
+  document.body.classList.add('presenting');window.scrollTo(0,0);present.blur();
+  status.textContent='Tap anywhere or press Escape to show the controls.';
+  try{const enter=document.documentElement.requestFullscreen||document.documentElement.webkitRequestFullscreen;if(!nativeElement()&&enter)await enter.call(document.documentElement);}catch{/* The clean display also works when native fullscreen is unavailable. */}
+  try{if('wakeLock' in navigator&&document.body.classList.contains('presenting'))wakeLock=await navigator.wakeLock.request('screen');}catch{}
+ });
+ document.addEventListener('click',event=>{if(!document.body.classList.contains('presenting'))return;event.preventDefault();event.stopImmediatePropagation();leavePresentation();},true);
+ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&document.body.classList.contains('presenting'))leavePresentation();});
+ function fullscreenChanged(){if(nativeElement()){hadNativeFullscreen=true;}else if(hadNativeFullscreen){hadNativeFullscreen=false;restoreControls();}}
+ document.addEventListener('fullscreenchange',fullscreenChanged);document.addEventListener('webkitfullscreenchange',fullscreenChanged);
+ document.getElementById('copy-project').addEventListener('click',async()=>{try{status.textContent=await copyText(PROJECT_URL)?'Project link copied.':'Use the address below the QR code.';}catch{status.textContent='Use the address below the QR code.';}});
+}

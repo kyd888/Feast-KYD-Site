@@ -33,3 +33,12 @@
 .tablet-page .signal-night{font-size:clamp(2.5rem,4.5vw,5rem);margin-left:8%}
 @media(max-width:850px),(orientation:portrait){.tablet-page .tablet-poster{grid-template-columns:1fr;grid-template-rows:minmax(220px,28svh) auto}.tablet-page .signal-art{min-height:28svh}.tablet-page .signal-title{padding-bottom:0}.tablet-page .signal-title h1{font-size:clamp(4rem,15vw,7rem)}.tablet-page .signal-night{font-size:clamp(2rem,6vw,3rem);margin-top:12px;margin-left:36%}.tablet-page .tablet-kyd{font-size:18px}.tablet-page .scan-panel{min-height:72svh;padding:24px}.tablet-page .qr-frame{width:min(53svh,88vw,640px)}}
 @media(max-height:700px) and (orientation:landscape){.tablet-page .qr-frame{width:min(60svh,100%,560px)}.tablet-page .scan-panel{padding:24px 20px 12px}.tablet-page .scan-kicker{margin-bottom:12px}.tablet-page .scan-copy{display:none}.tablet-page .scan-panel h2{margin:16px 0 9px}.tablet-page .tablet-controls{margin-top:12px}}
+/* Presentation mode hides every interactive control, including on tablet browsers without native fullscreen. */
+body.tablet-page.presenting{position:fixed;inset:0;width:100%;height:100dvh;min-height:0;overflow:hidden;padding:0;cursor:none}
+body.tablet-page.presenting .tablet-back,body.tablet-page.presenting .tablet-controls,body.tablet-page.presenting .tablet-status,body.tablet-page.presenting .site-url,body.tablet-page.presenting .scan-copy,body.tablet-page.presenting .scan-kicker{display:none!important}
+body.tablet-page.presenting .tablet-poster{height:100dvh;min-height:0}
+body.tablet-page.presenting .signal-art,body.tablet-page.presenting .scan-panel{min-height:0}
+body.tablet-page.presenting .scan-panel{padding:24px}
+body.tablet-page.presenting .qr-frame{width:min(80dvh,100%,800px)}
+body.tablet-page.presenting .scan-panel h2{margin:22px 0 0}
+@media(max-width:850px),(orientation:portrait){body.tablet-page.presenting .tablet-poster{grid-template-rows:28dvh 72dvh}body.tablet-page.presenting .qr-frame{width:min(57dvh,88vw,800px)}body.tablet-page.presenting .scan-panel{padding:16px}}
