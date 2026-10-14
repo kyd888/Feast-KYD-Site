@@ -58,6 +58,7 @@ if(matchMedia('(prefers-reduced-motion: reduce)').matches)$('autoscroll').checke
 let prompterNativeFullscreen=false;
 function restorePrompterControls(){document.body.classList.remove('prompter-fullscreen');$('fullscreen').textContent='Full screen';view.focus();}
 async function exitPrompterFullscreen(){restorePrompterControls();try{if(document.fullscreenElement||document.webkitFullscreenElement){const exit=document.exitFullscreen||document.webkitExitFullscreen;if(exit)await exit.call(document);}}catch{}}
+$('exit-fullscreen').addEventListener('click',exitPrompterFullscreen);
 $('fullscreen').addEventListener('click',async()=>{document.body.classList.add('prompter-fullscreen');view.focus();try{const enter=document.documentElement.requestFullscreen||document.documentElement.webkitRequestFullscreen;if(!document.fullscreenElement&&!document.webkitFullscreenElement&&enter)await enter.call(document.documentElement);}catch{}keepAwake();});
 function prompterFullscreenChanged(){if(document.fullscreenElement||document.webkitFullscreenElement){prompterNativeFullscreen=true;document.body.classList.add('prompter-fullscreen');}else if(prompterNativeFullscreen){prompterNativeFullscreen=false;restorePrompterControls();}}
 document.addEventListener('fullscreenchange',prompterFullscreenChanged);document.addEventListener('webkitfullscreenchange',prompterFullscreenChanged);
